@@ -9,7 +9,7 @@ const App = () => (
       <NewsLetterFormView />
     </NewsLetterFormController> */}
     <EmployeeTableController />
-    <StickyHeadTable />
+    {/* <StickyHeadTable /> */}
   </Container>
 );
 

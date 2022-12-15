@@ -26,6 +26,20 @@ fs.readFile("./data.json", "utf8", (err, jsonString) => {
   employeeData = JSON.parse(jsonString);
 });
 
+router.get("/get", function (req, res) {
+  let db = req.db;
+  let employeesDB = db.get("Employees");
+  employeesDB.find({}, function (error, result) {
+    if (error == null) {
+      logSuccess();
+      res.json(result);
+    } else {
+      logError(error);
+      res.json(error);
+    }
+  });
+});
+
 // load data into the MongoDB database
 router.post("/load", bodyParser.json(), function (req, res) {
   let db = req.db;
