@@ -1,15 +1,14 @@
-import React, { useState, useEffect, useReducer, createContext } from "react";
+import React, { useEffect, useReducer, createContext } from "react";
 import initialModel from "../models/EmployeeTableModel";
-import actions from "../models/actions/EmployeeTableAction";
 import reducer from "../models/reducers/EmployeeTableReducer";
-import StickyHeadTable from "../components/Table";
+import actions from "../models/actions/EmployeeTableAction";
 import Button from "@material-ui/core/Button";
-import PopupFrom from "../components/PopupForm";
-import Dialog from "@mui/material/Dialog";
 
 const api = async (url, method, headers, body) => {
   const response = await fetch(url, {
     method: method,
+    headers: headers,
+    body: body,
   });
   return await response.json();
 };
@@ -39,11 +38,13 @@ const deleteRecord = async () => {
 };
 
 const EmployeeTableController = ({ children }) => {
-  const [data, setData] = useState({});
-  const [openPopupForm, setOpenPopupForm] = useState(false);
+  const [model, dispatch] = useReducer(reducer, initialModel);
 
   const handleClose = () => {
-    setOpenPopupForm(false);
+    dispatch({
+      type: actions.SET_OPEN_POPUP_FORM,
+      payload: false,
+    });
   };
 
   const appendButtonsToEachData = (data) => {
@@ -55,7 +56,10 @@ const EmployeeTableController = ({ children }) => {
             <Button
               color="primary"
               onClick={() => {
-                setOpenPopupForm(true);
+                dispatch({
+                  type: actions.SET_OPEN_POPUP_FORM,
+                  payload: true,
+                });
               }}
             >
               Edit
@@ -70,35 +74,25 @@ const EmployeeTableController = ({ children }) => {
   useEffect(async () => {
     await load();
     const data = await getData();
-    setData({
-      title: "Employees",
-      columns: [
-        { id: "firstName", label: "First Name" },
-        {
-          id: "lastName",
-          label: "Last Name",
-        },
-        {
-          id: "salary",
-          label: "Salary",
-        },
-        {
-          id: "button",
-        },
-      ],
-      rows: appendButtonsToEachData(data),
+    console.log(`checkout ${JSON.stringify(data)}`);
+    dispatch({
+      type: actions.SET_EMPLOYEES_DATA,
+      payload: {
+        title: "Employees",
+        columns: model.formHeader,
+        rows: appendButtonsToEachData(data),
+      },
     });
   }, []);
 
   return (
     <>
-      <Dialog open={openPopupForm} onClose={handleClose}>
-        <PopupFrom />
-      </Dialog>
-      <StickyHeadTable data={data} />
-      {/* <button onClick={testBackend}>test backend</button> */}
+      <EmployeeTableControllerContext.Provider value={{ model, handleClose }}>
+        {children}
+      </EmployeeTableControllerContext.Provider>
     </>
   );
 };
 
+export const EmployeeTableControllerContext = createContext();
 export default EmployeeTableController;

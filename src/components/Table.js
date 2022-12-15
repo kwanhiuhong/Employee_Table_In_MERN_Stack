@@ -11,9 +11,9 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 
 const StickyHeadTable = ({ data }) => {
-  const title = data.title ? data.title : "";
-  const columns = data.columns ? data.columns : [];
-  const rows = data.rows ? data.rows : [];
+  const title = data && data.title ? data.title : "";
+  const columns = data && data.columns ? data.columns : [];
+  const rows = data && data.rows ? data.rows : [];
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
