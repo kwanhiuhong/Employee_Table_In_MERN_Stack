@@ -1,7 +1,6 @@
 import React from "react";
 import Container from "@material-ui/core/Container";
-import NewsLetterFormController from "./controllers/EmployeeTableController";
-import NewsLetterFormView from "./pages/EmployeeTable";
+import EmployeeTableController from "./controllers/EmployeeTableController";
 import StickyHeadTable from "./components/Table";
 
 const App = () => (
@@ -9,6 +8,7 @@ const App = () => (
     {/* <NewsLetterFormController>
       <NewsLetterFormView />
     </NewsLetterFormController> */}
+    <EmployeeTableController />
     <StickyHeadTable />
   </Container>
 );
