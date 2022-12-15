@@ -1,8 +1,9 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import StickyHeadTable from "../components/Table";
 import PopupFrom from "../components/PopupForm";
 import Dialog from "@mui/material/Dialog";
 import { EmployeeTableControllerContext } from "../controllers/EmployeeTableController";
+import Box from "@mui/material/Box";
 
 const EmployeeTableView = () => {
   const context = useContext(EmployeeTableControllerContext);
@@ -15,7 +16,9 @@ const EmployeeTableView = () => {
       <Dialog open={shouldOpenPopupForm} onClose={handleClose}>
         <PopupFrom />
       </Dialog>
-      <StickyHeadTable data={employeesData} />
+      <Box m={2}>
+        <StickyHeadTable data={employeesData} />
+      </Box>
     </>
   );
 };
