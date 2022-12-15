@@ -1,25 +1,16 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import Container from "@material-ui/core/Container";
+import NewsLetterFormController from "./controllers/EmployeeTableController";
+import NewsLetterFormView from "./pages/EmployeeTable";
+import StickyHeadTable from "./components/Table";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => (
+  <Container maxWidth="sm" justify="center">
+    {/* <NewsLetterFormController>
+      <NewsLetterFormView />
+    </NewsLetterFormController> */}
+    <StickyHeadTable />
+  </Container>
+);
 
 export default App;
