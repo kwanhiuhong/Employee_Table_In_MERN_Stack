@@ -1,27 +1,86 @@
-const express = require("express");
-const app = express();
-const cors = require("cors");
-require("dotenv").config({ path: "./config.env" });
-const port = process.env.PORT || 3000;
-app.use(cors());
-app.use(express.json());
-app.use(require("../src/backend/EmployeeTableBackend.js"));
-// get driver connection
+#!/usr/bin/env node
 
-app.listen(port, () => {
-  // perform a database connection when server starts
-  console.log(`Server is running on port: ${port}`);
-});
+/**
+ * Module dependencies.
+ */
 
-var mongo = require("mongodb");
-var monk = require("monk");
-var db = monk("localhost:27017/employee_table_in_mern");
+var app = require("../app");
+var debug = require("debug")("employee_table_in_mern:server");
+var http = require("http");
 
-// var indexRouter = require('./routes/index');
-// var backendRouter = require("./src/backend/EmployeeTableBackend.js");
+/**
+ * Get port from environment and store in Express.
+ */
 
-// Make our db accessible to our router
-app.use(function (req, res, next) {
-  req.db = db;
-  next();
-});
+var port = normalizePort(process.env.PORT || "3000");
+app.set("port", port);
+
+/**
+ * Create HTTP server.
+ */
+
+var server = http.createServer(app);
+
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+
+server.listen(port);
+server.on("error", onError);
+server.on("listening", onListening);
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+
+function onError(error) {
+  if (error.syscall !== "listen") {
+    throw error;
+  }
+
+  var bind = typeof port === "string" ? "Pipe " + port : "Port " + port;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case "EACCES":
+      console.error(bind + " requires elevated privileges");
+      process.exit(1);
+      break;
+    case "EADDRINUSE":
+      console.error(bind + " is already in use");
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+
+function onListening() {
+  var addr = server.address();
+  var bind = typeof addr === "string" ? "pipe " + addr : "port " + addr.port;
+  debug("Listening on " + bind);
+}

@@ -5,7 +5,18 @@ import reducer from "../models/reducers/EmployeeTableReducer";
 
 const EmployeeTableController = ({ children }) => {
   const testBackend = async () => {
-    const response = await fetch("http://localhost:3000/helloworld");
+    const response = await fetch("http://localhost:3000/delete", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        firstName: "JJJ",
+        lastName: "Kwan",
+        salary: 3000,
+      }),
+    });
+    console.log(response);
     const rspJson = await response.json();
     console.log("the response is");
     window.alert(`Connected to backend! See rsp: ${JSON.stringify(rspJson)}`);
@@ -32,3 +43,16 @@ const EmployeeTableController = ({ children }) => {
 };
 
 export default EmployeeTableController;
+
+// post request
+// const response = await fetch("http://localhost:3000/add", {
+//   method: "POST",
+//   headers: {
+//     "Content-Type": "application/json",
+//   },
+//   body: JSON.stringify({
+//     firstName: "Terry",
+//     lastName: "Kwan",
+//     salary: 40700,
+//   }),
+// });
