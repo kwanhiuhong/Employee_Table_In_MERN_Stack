@@ -1,6 +1,14 @@
 # MERN Stack Employee Table with CRUD functions
 
-### Goal:
+### Table of Contents
+
+- [Setup](#setup)
+- [Goal](#goal)
+- [Functional Requirements](#functional_requirements)
+- [Technical Guidelines](#technical_guidelines)
+- [Final Demo](#final_demo)
+
+# Goal
 
 - Create an Employee Table like the one in the image below.
 - Use any front-end framework (Angular, React, Vue, ect...) or CSS library to accomplish this.
@@ -8,7 +16,7 @@
 
 ![](example.png)
 
-### Functional Requirements:
+# Functional Requirements
 
 - Initially, list all employees that are in data.json
   - First name, last name, and salary in currency format (ie. $42,000)
@@ -16,7 +24,7 @@
 - The ability to delete an employee
 - The ability to create a new employee
 
-### Technical Guidelines:
+# Technical Guidelines
 
 - Structure your application and components in a modular/reusable way
 - Commit code with useful and informative comments
@@ -24,10 +32,14 @@
 - Implement API code to read and write to a SQL database
 - Styling: CSS or SCSS or SASS can be used, whichever you prefer (can use popular UI frameworks like Bootstrap as well)
 
-### Final Demo
+# Final Demo
 
 <figure class="video_container">
   <video controls="true" allowfullscreen="true">
     <source src="./demo.mov" type="video/mp4">
   </video>
 </figure>
+
+# Misc
+
+The MongoDB is called "employee_table_in_mern" with one collection called "Employees"
