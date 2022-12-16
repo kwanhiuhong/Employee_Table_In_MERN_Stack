@@ -63,26 +63,13 @@ router.post("/load", bodyParser.json(), function (req, res) {
   );
 });
 
-router.post("/add", bodyParser.json(), function (req, res) {
-  let db = req.db;
-  let employeesDB = db.get("Employees");
-  employeesDB.insert(req.body, function (error) {
-    if (error == null) {
-      logSuccess();
-      res.json(successReturn);
-    } else {
-      logError(error);
-      res.json(error);
-    }
-  });
-});
-
 router.put("/edit", bodyParser.json(), function (req, res) {
   let db = req.db;
   let employeesDB = db.get("Employees");
   employeesDB.update(
     { firstName: req.body.firstName, lastName: req.body.lastName },
     { $set: req.body },
+    { upsert: true },
     function (error) {
       if (error == null) {
         logSuccess();

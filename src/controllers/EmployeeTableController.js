@@ -17,14 +17,14 @@ const load = async () => {
   return await api("http://localhost:3000/load", "POST");
 };
 
-const getData = async () => {
+const fetchData = async () => {
   return await api("http://localhost:3000/get", "GET");
 };
 
 const addData = async (data) => {
   const response = await api(
-    "http://localhost:3000/add",
-    "POST",
+    "http://localhost:3000/edit",
+    "PUT",
     {
       "Content-Type": "application/json",
     },
@@ -67,8 +67,16 @@ const EmployeeTableController = ({ children }) => {
     });
   };
 
-  const handleSubmit = async (data) => {
-    await addData(data);
+  const handleSubmit = async (input) => {
+    await addData(input);
+    const data = await fetchData();
+    dispatch({
+      type: actions.SET_EMPLOYEES_DATA,
+      payload: {
+        ...model.employeesData,
+        rows: appendButtonsToEachData(data),
+      },
+    });
   };
 
   const appendButtonsToEachData = (data) => {
@@ -97,7 +105,7 @@ const EmployeeTableController = ({ children }) => {
 
   useEffect(async () => {
     await load();
-    const data = await getData();
+    const data = await fetchData();
     console.log(`checkout ${JSON.stringify(data)}`);
     dispatch({
       type: actions.SET_FORM_DATA,
