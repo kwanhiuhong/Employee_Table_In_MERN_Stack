@@ -2,11 +2,11 @@
 
 ### Table of Contents
 
-- [Setup](#setup)
 - [Goal](#goal)
-- [Functional Requirements](#functional_requirements)
-- [Technical Guidelines](#technical_guidelines)
-- [Final Demo](#final_demo)
+- [Functional Requirements](#functional-requirements)
+- [Technical Guidelines](#technical-guidelines)
+- [Final Demo](#final-demo)
+- [Misc](#misc)
 
 # Goal
 
