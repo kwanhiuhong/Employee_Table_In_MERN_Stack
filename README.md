@@ -36,7 +36,7 @@
 
 <figure class="video_container">
   <video controls="true" allowfullscreen="true">
-    <source src="./demo.mov" type="video/mp4">
+    <source src="https://github.com/kwanhiuhong/Employee_Table_In_MERN_Stack/blob/master/Demo.mov" type="video/mp4">
   </video>
 </figure>
 
