@@ -33,12 +33,12 @@
 - Styling: CSS or SCSS or SASS can be used, whichever you prefer (can use popular UI frameworks like Bootstrap as well)
 
 # Final Demo
+My demo could be downloaded at https://github.com/kwanhiuhong/Employee_Table_In_MERN_Stack/blob/master/Demo.mp4
 
-<figure class="video_container">
-  <video controls="true" allowfullscreen="true">
-    <source src="https://github.com/kwanhiuhong/Employee_Table_In_MERN_Stack/blob/master/Demo.mov" type="video/mp4">
-  </video>
-</figure>
+
+https://user-images.githubusercontent.com/35834648/208011548-5e9c91bb-f0ce-4497-a363-78e8692fe3eb.mp4
+
+
 
 # Misc
 
