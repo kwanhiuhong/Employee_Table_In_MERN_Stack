@@ -17,7 +17,7 @@ const load = async () => {
   return await api("http://localhost:3000/load", "POST");
 };
 
-const fetchData = async () => {
+const getData = async () => {
   return await api("http://localhost:3000/get", "GET");
 };
 
@@ -35,23 +35,32 @@ const addData = async (data) => {
     : window.alert(`Error! See: ${JSON.stringify(response)}`);
 };
 
-const deleteRecord = async () => {
+const deleteRecord = async (inputJson) => {
   const response = await api(
     "http://localhost:3000/delete",
     "DELETE",
     {
       "Content-Type": "application/json",
     },
-    JSON.stringify({
-      firstName: "JJJ",
-      lastName: "Kwan",
-      salary: 3000,
-    })
+    JSON.stringify(inputJson)
   );
+  return response;
 };
 
 const EmployeeTableController = ({ children }) => {
   const [model, dispatch] = useReducer(reducer, initialModel);
+
+  const fetchData = async () => {
+    const data = await getData();
+    dispatch({
+      type: actions.SET_EMPLOYEES_DATA,
+      payload: {
+        title: "Employees",
+        columns: model.formHeader,
+        rows: appendButtonsToEachData(data),
+      },
+    });
+  };
 
   const handleAdd = () => {
     dispatch({
@@ -69,14 +78,20 @@ const EmployeeTableController = ({ children }) => {
 
   const handleSubmit = async (input) => {
     await addData(input);
-    const data = await fetchData();
-    dispatch({
-      type: actions.SET_EMPLOYEES_DATA,
-      payload: {
-        ...model.employeesData,
-        rows: appendButtonsToEachData(data),
-      },
+    await fetchData();
+    handleClose();
+  };
+
+  const handleDelete = async (event) => {
+    const firstName =
+      event.currentTarget.parentNode.parentElement.childNodes[0].textContent;
+    const lastName =
+      event.currentTarget.parentNode.parentElement.childNodes[1].textContent;
+    await deleteRecord({
+      firstName,
+      lastName,
     });
+    await fetchData();
   };
 
   const appendButtonsToEachData = (data) => {
@@ -96,7 +111,9 @@ const EmployeeTableController = ({ children }) => {
             >
               Edit
             </Button>
-            <Button color="secondary">Delete</Button>
+            <Button color="secondary" onClick={handleDelete}>
+              Delete
+            </Button>
           </>
         ),
       };
@@ -105,21 +122,12 @@ const EmployeeTableController = ({ children }) => {
 
   useEffect(async () => {
     await load();
-    const data = await fetchData();
-    console.log(`checkout ${JSON.stringify(data)}`);
+    await fetchData();
     dispatch({
       type: actions.SET_FORM_DATA,
       payload: {
         title: "Add/Edit Employee's Information",
         description: "Please add or edit your employee info below",
-      },
-    });
-    dispatch({
-      type: actions.SET_EMPLOYEES_DATA,
-      payload: {
-        title: "Employees",
-        columns: model.formHeader,
-        rows: appendButtonsToEachData(data),
       },
     });
   }, []);

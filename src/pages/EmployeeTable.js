@@ -31,7 +31,7 @@ const EmployeeTableView = () => {
         />
       </Dialog>
       <Box m={2} alignItems="flex-end">
-        <StickyHeadTable data={employeesData} />
+        <StickyHeadTable data={{ ...employeesData }} />
         <Box
           m={1}
           display="flex"
