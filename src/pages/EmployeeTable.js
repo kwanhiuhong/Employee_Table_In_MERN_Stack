@@ -17,13 +17,18 @@ const EmployeeTableView = () => {
   const classes = useStyles();
   const context = useContext(EmployeeTableControllerContext);
   const {
-    model: { shouldOpenPopupForm, employeesData },
+    model: { shouldOpenPopupForm, popupFormHeader, employeesData, formHeader },
     handleClose,
+    handleAdd,
+    handleSubmit,
   } = context;
+
   return (
     <>
       <Dialog open={shouldOpenPopupForm} onClose={handleClose}>
-        <PopupFrom />
+        <PopupFrom
+          data={{ ...popupFormHeader, formData: formHeader, handleSubmit }}
+        />
       </Dialog>
       <Box m={2} alignItems="flex-end">
         <StickyHeadTable data={employeesData} />
@@ -33,7 +38,11 @@ const EmployeeTableView = () => {
           justifyContent="flex-end"
           alignItems="flex-end"
         >
-          <Button variant="contained" classes={{ root: classes.success }}>
+          <Button
+            variant="contained"
+            classes={{ root: classes.success }}
+            onClick={handleAdd}
+          >
             ADD EMPLOYEE
           </Button>
         </Box>

@@ -1,5 +1,9 @@
 const EmployeeTableModel = {
   shouldOpenPopupForm: false,
+  popupFormHeader: {
+    title: "",
+    description: "",
+  },
   employeesData: {
     title: "",
     columns: [],

@@ -9,6 +9,9 @@ const EmployeeTableReducer = (state, action) => {
     case actions.SET_EMPLOYEES_DATA:
       return { ...state, employeesData: payload };
 
+    case actions.SET_FORM_DATA:
+      return { ...state, popupFormHeader: payload };
+
     default:
       return state;
   }

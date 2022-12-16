@@ -21,6 +21,20 @@ const getData = async () => {
   return await api("http://localhost:3000/get", "GET");
 };
 
+const addData = async (data) => {
+  const response = await api(
+    "http://localhost:3000/add",
+    "POST",
+    {
+      "Content-Type": "application/json",
+    },
+    JSON.stringify(data)
+  );
+  response.msg
+    ? window.alert("Success")
+    : window.alert(`Error! See: ${JSON.stringify(response)}`);
+};
+
 const deleteRecord = async () => {
   const response = await api(
     "http://localhost:3000/delete",
@@ -34,17 +48,27 @@ const deleteRecord = async () => {
       salary: 3000,
     })
   );
-  const rspJson = await response.json();
 };
 
 const EmployeeTableController = ({ children }) => {
   const [model, dispatch] = useReducer(reducer, initialModel);
+
+  const handleAdd = () => {
+    dispatch({
+      type: actions.SET_OPEN_POPUP_FORM,
+      payload: true,
+    });
+  };
 
   const handleClose = () => {
     dispatch({
       type: actions.SET_OPEN_POPUP_FORM,
       payload: false,
     });
+  };
+
+  const handleSubmit = async (data) => {
+    await addData(data);
   };
 
   const appendButtonsToEachData = (data) => {
@@ -76,6 +100,13 @@ const EmployeeTableController = ({ children }) => {
     const data = await getData();
     console.log(`checkout ${JSON.stringify(data)}`);
     dispatch({
+      type: actions.SET_FORM_DATA,
+      payload: {
+        title: "Add/Edit Employee's Information",
+        description: "Please add or edit your employee info below",
+      },
+    });
+    dispatch({
       type: actions.SET_EMPLOYEES_DATA,
       payload: {
         title: "Employees",
@@ -87,7 +118,9 @@ const EmployeeTableController = ({ children }) => {
 
   return (
     <>
-      <EmployeeTableControllerContext.Provider value={{ model, handleClose }}>
+      <EmployeeTableControllerContext.Provider
+        value={{ model, handleClose, handleAdd, handleSubmit }}
+      >
         {children}
       </EmployeeTableControllerContext.Provider>
     </>
