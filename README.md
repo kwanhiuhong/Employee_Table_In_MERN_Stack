@@ -43,3 +43,15 @@
 # Misc
 
 The MongoDB is called "employee_table_in_mern" with one collection called "Employees"
+
+1. First link your mongodb to this project data folder
+   `/Users/hiuhongkwan/Documents/Developer_Tools/MongoDB_4.4.1/mongodb-macos-x86_64-4.4.1/bin/mongod --dbpath /Users/hiuhongkwan/Desktop/Github/employee_table_in_mern/data`
+
+2. Then call mongo to start manipulating the mongo db
+   `/Users/hiuhongkwan/Documents/Developer_Tools/MongoDB_4.4.1/mongodb-macos-x86_64-4.4.1/bin/mongo`
+
+3. Then start the server
+   `node ./server/server.js`
+
+4. Start the web application
+   `npm start`
